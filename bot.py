@@ -49,7 +49,7 @@ def main():
     # Post version 12 this will no longer be necessary
 
     TOKEN = os.environ.get("API_KEY")
-    APP_NAME = 'localhost'
+    APP_NAME = 'https://qrskynet.herokuapp.com/'
 
     updater = Updater(TOKEN, use_context=True)
 
