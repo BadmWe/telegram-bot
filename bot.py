@@ -30,9 +30,6 @@ def echo(update, context):
     """Echo the user message."""
     update.message.reply_text(update.message.text)
 
-    context.bot.send_photo(chat_id=update.message.chat_id,
-                           photo=open('output.png', 'rb'))
-
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -40,12 +37,14 @@ def echo(update, context):
         border=4,
     )
 
-    qr.add_data('Some data')
+    qr.add_data(update.message.text)
     qr.make(fit=True)
 
     img = qr.make_image(back_color=(255, 195, 235), fill_color=(55, 95, 35))
-
-    context.bot.send_photo(update.message.chat_id, img)
+    img.save('output.png')
+    context.bot.send_photo(chat_id=update.message.chat_id,
+                           photo=open('output.png', 'rb'))
+    #context.bot.send_photo(update.message.chat_id, img)
 
 
 def help(update, context):
