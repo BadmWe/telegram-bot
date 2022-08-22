@@ -29,6 +29,10 @@ def start(update, context):
 def echo(update, context):
     """Echo the user message."""
     update.message.reply_text(update.message.text)
+
+    context.bot.send_photo(chat_id=update.message.chat_id,
+                           photo=open('output.png', 'rb'))
+
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
