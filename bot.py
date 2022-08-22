@@ -1,7 +1,7 @@
 import logging
 import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-
+import qrcode
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -22,13 +22,26 @@ def start(update, context):
     # datastorage.add_counter()
 
     """Send a message when the command /start is issued."""
-    update.message.reply_text(f'Hi!')
-    #update.message.reply_text(f'Hi! number:{datastorage.counter}')
+    # update.message.reply_text(f'Hi!')
+    # update.message.reply_text(f'Hi! number:{datastorage.counter}')
 
 
 def echo(update, context):
     """Echo the user message."""
     update.message.reply_text(update.message.text)
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+
+    qr.add_data('Some data')
+    qr.make(fit=True)
+
+    img = qr.make_image(back_color=(255, 195, 235), fill_color=(55, 95, 35))
+
+    context.bot.send_photo(update.message.chat_id, img)
 
 
 def help(update, context):
