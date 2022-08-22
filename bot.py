@@ -47,8 +47,9 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
+
     TOKEN = os.environ.get("API_KEY")
-    APP_NAME = ''
+    APP_NAME = 'localhost'
 
     updater = Updater(TOKEN, use_context=True)
 
